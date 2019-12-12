@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -eo pipefail
+[[ $DOKKU_TRACE ]] && set -x
+
+CONTAINER_ID="$2";
+
+NETWORK_NAME='datadog-network'
+
+# Create network if it does not exists
+NETWORK=$(docker network ls -q -f name="$NETWORK_NAME")
+[[ -z "$NETWORK" ]] && docker network create "$NETWORK_NAME"
+
+# Connect to the network
+"$DOCKER_BIN" network connect "$NETWORK_NAME" "$CONTAINER_ID"
+
+echo "Successfull connect container:$CONTAINER_ID to network:$NETWORK_NAME"
