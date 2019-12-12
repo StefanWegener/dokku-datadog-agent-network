@@ -4,7 +4,7 @@ set -eo pipefail
 
 CONTAINER_ID="$2";
 
-NETWORK_NAME='datadog-network'
+NETWORK_NAME='datadog_network'
 
 # Create network if it does not exists
 NETWORK=$(docker network ls -q -f name="$NETWORK_NAME")
